@@ -31,19 +31,19 @@ def makeIcons():
             img[:, :, 1] = n.get("bgr")[1]
             img[:, :, 2] = n.get("bgr")[2]
             # pngで出力したいときは以下のコメントを外す
-            cv2.imwrite(n.get("colorName") + "_" + str(i) + "_" + str(n) + ".png", img)
+            # cv2.imwrite(n.get("colorName") + "_" + str(i) + "_" + str(n) + ".png", img)
             img_base64 = pil_to_base64(img)
             img_base64Str = img_base64.decode('utf-8')
             iconInfo['iconType'] = iconType
             iconInfo['colorName'] = n.get("colorName")
             iconInfo['base64'] = str(img_base64Str)
             iconsInfo.append(iconInfo)
-
+            iconInfo = {}
             # 透過部分と色つき部分を反転させる
             # img[:, :, 3] がαチャネルになるので反転させる
             img[:, :, 3] = 255 - img[:, :, 3]
             # pngで出力したいときは以下のコメントを外す
-            cv2.imwrite(n.get("colorName") + "_flip" + str(i) + "_" + str(n) + ".png", img)
+            # cv2.imwrite(n.get("colorName") + "_flip" + str(i) + "_" + str(n) + ".png", img)
             img_base64 = pil_to_base64(img)
             img_base64Str = img_base64.decode('utf-8')
             iconInfo['iconType'] = iconType
