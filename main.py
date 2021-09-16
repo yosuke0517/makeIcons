@@ -19,7 +19,8 @@ FILE_PREFIX = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11",
 
 
 def makeIcons():
-    iconsInfo = []
+    iconsInfoByType = []
+    totalIconInfo = []
     for i in FILE_PREFIX:
         iconType = i
         fileName = "icons" + iconType + ".png"
@@ -37,7 +38,7 @@ def makeIcons():
             iconInfo['iconType'] = iconType
             iconInfo['colorName'] = n.get("colorName")
             iconInfo['base64'] = str(img_base64Str)
-            iconsInfo.append(iconInfo)
+            iconsInfoByType.append(iconInfo)
             iconInfo = {}
             # 透過部分と色つき部分を反転させる
             # img[:, :, 3] がαチャネルになるので反転させる
@@ -49,8 +50,10 @@ def makeIcons():
             iconInfo['iconType'] = iconType
             iconInfo['colorName'] = n.get("colorName")
             iconInfo['base64'] = str(img_base64Str)
-            iconsInfo.append(iconInfo)
-    write_to_json("icons_base64.json", iconsInfo)
+            iconsInfoByType.append(iconInfo)
+        totalIconInfo.append(iconsInfoByType)  # type単位で全色のパターン分を詰めて初期化する
+        iconsInfoByType = []
+    write_to_json("icons_base64.json", totalIconInfo)
 
 
 def pil_to_base64(img):
